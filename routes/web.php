@@ -20,9 +20,14 @@ Route::get('/', function () {
 
 Auth::routes();
 
+
 Route::get('/admin', ['uses' => 'Admin\AdminController@index', 'as'=> 'admin']);
 
-Auth::routes();
+Route::group(['prefix' => 'admin'], function () {
+
+    Route::match(['get','post'],'put_page', ['uses' => 'Admin\AdminController@put_page', 'as' => 'put_pgae']);
+
+});
 
 
 Route::get('page/{id}',function($id){
@@ -34,9 +39,4 @@ Route::get('page/{id}',function($id){
 });
 
 
-Route::group(['prefix' => 'admin'], function () {
-
-    Route::match(['get','post'],'put_page', ['uses' => 'Admin\AdminController@put_page', 'as' => 'put_pgae']);
-
-});
 
